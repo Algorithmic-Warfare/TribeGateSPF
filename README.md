@@ -18,6 +18,10 @@ pnpm install
 
 2. Place your private key in the `./packages/contracts/.env`
 3. Fill in your list of smartGateIds in `./packages/contracts/smartGateIds.json`
+
+```sh
+curl -s https://blockchain-gateway-stillness.live.tech.evefrontier.com/smartassemblies | jq '{smartGateIds: [.[] | select(.assemblyType == "SmartGate" and .ownerId == "YOUR CHARACTER ADDRESS") | .id]}' > smartGateIds.json
+```
 4. Run the following script
 
 ```sh
