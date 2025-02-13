@@ -28,6 +28,15 @@ curl -s https://blockchain-gateway-stillness.live.tech.evefrontier.com/smartasse
 pnpm configure-smart-gates
 ```
 
+## Docker
+
+```
+docker build --tag configure-smart-gates .
+
+docker run --rm --env PUBLIC_KEY=_YOUR_PUBLIC_KEY_ --env PRIVATE_KEY=_YOUR_PRIVATE_KEY_ configure-smart-gates
+```
+
+
 ## Notes
 
 - You do not need to deploy the following codebase. It is already deployed.
