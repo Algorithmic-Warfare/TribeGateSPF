@@ -32,9 +32,39 @@ pnpm configure-smart-gates
 
 ```
 docker build --tag configure-smart-gates .
+```
 
+1. Build the docker image
+
+### Using environemntal variables
+
+```
 docker run --rm --env PUBLIC_KEY=_YOUR_PUBLIC_KEY_ --env PRIVATE_KEY=_YOUR_PRIVATE_KEY_ configure-smart-gates
 ```
+
+2. Run the configure-smart-gates script with public and private keys passed with environmental
+   variables.
+
+### Using docker volume
+
+```
+docker volume create eve-keys
+
+docker run -i --rm --mount type=volume,src=eve-keys,dst=/secrets --entrypoint bash configure-smart-gates -c "cat - > /secrets/keys" <<EOF
+PUBLIC_KEY=YOUR_PUBLIC_KEY
+PRIVATE_KEY=YOUR_PRIVATE_KEY
+EOF
+```
+
+2. Create a volume called `eve-keys` that is mounted on `/secrets` and add your keys to the file
+   `/secrets/keys`.
+
+```
+docker run -t --rm --mount type=volume,src=eve-keys,dst=/secrets configure-smart-gates
+```
+
+3. Run the configure-smart-gates image, which will read the keys from `/secrets/keys` before calling
+   `pnpm configure-smart-gates`.
 
 
 ## Notes

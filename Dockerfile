@@ -19,11 +19,13 @@ WORKDIR /app/packages/contracts
 
 RUN pnpm install
 
-# TODO: Add docker secret support for PRIVATE_KEY.
-
 RUN printf "%s\n" \
   '#!/bin/bash' \
   'set -eu' \
+  '' \
+  'if [[ -f /secrets/keys ]]; then' \
+  '  source /secrets/keys' \
+  'fi' \
   '' \
   'sed -i '' -e "s/^PRIVATE_KEY=[^\$]*\$/PRIVATE_KEY=${PRIVATE_KEY}/" .env' \
   '' \
